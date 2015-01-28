@@ -1,0 +1,14 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/layouts/sidebar-layout.html">
+<link rel="import" href="/elements/refund-list.html">
+
+<polymer-element name="payments-page" attributes="pathArg1" noscript>
+  <template>
+    <sidebar-layout selected="payments">
+      <div class="title">Payments</div>  
+      <section>
+	    <refund-list></refund-list>
+	 </section>
+    </sidebar-layout>
+  </template>
+</polymer-element>

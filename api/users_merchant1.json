@@ -1,0 +1,19 @@
+[
+  {
+    "user_address" : "mt47nJTg3nK5FDuvo6K9cqrhLwaNMtCJtp",
+    "refund_amt" : "100"
+  },
+  {
+    "user_address" : "mniX9pbC1fhaSA8vYizLsYSm2hqZiXV1sb",
+    "refund_amt" : "1"
+  },
+  {
+    "user_address" : "miYkr8wBkZh58vqrcJsTVCKMRC47x7YSwY",
+    "refund_amt" : "2"
+  },
+  {
+    "user_address" : "mwApMBcUYqrB8yPjJP6jZCnXCnPLyp4Pbt",
+    "refund_amt" : "10"
+  }
+  
+]

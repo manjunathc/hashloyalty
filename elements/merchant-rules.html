@@ -1,0 +1,181 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="stylesheet" href="../css/styles.css" shim-shadowdom>
+<link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="/bower_components/core-localstorage/core-localstorage.html">
+<link rel="import" href="/bower_components/core-item/core-item.html">
+<link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="/bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/core-ajax/core-xhr.html">
+
+
+<polymer-element name="merchant-rules">
+  <template>
+    <style>
+	
+		.item {
+		 
+		}
+		
+		.item[data-done="true"] {
+		  opacity: 0.3;
+		}
+		
+		.card {
+		  width: 300px;
+		  background-color: #fff;
+		  padding: 1em;
+		  position: relative;
+		}
+		
+		.data {
+		  padding: 1em;
+		  position: relative;
+		}
+		
+		.colored {
+			background: #4285f4;
+			color: #fff;
+		}
+		
+		.box {
+			margin-bottom: 40px;
+			background-color: rgb(0, 190, 164);
+			
+		}
+		
+		.box h3 {
+		    color: white;
+		    padding: 16px;
+		}
+		
+		
+		paper-slider {
+		    cursor: default;
+		    display: inline;
+		}
+		
+		paper-slider .bar-container {
+			
+		}
+		
+		paper-input paper-input-decorator{
+		    padding: 0.75em;
+		}		
+		
+		.rule-button {
+			padding: 10px;
+		}
+		
+		merchant-rules .item {
+		    padding: 1em;
+		}
+		
+	
+    </style>
+    
+	  
+	<core-ajax id="ajax2"
+			      url="/text" 
+			      handleAs="json" 
+			        method="POST" 
+			        params='{"foo": "bar"}'
+			        response=""></core-ajax>
+	  
+	<paper-fab icon="icons:add" on-tap="{{showNewNoteInput}}"></paper-fab>
+	
+	<paper-icon-button icon="delete" on-tap="{{delete}}"></paper-icon-button>
+	
+	
+	
+	<section id="newNoteInput" class="box method-box">
+		<h3>Configure Promotion Rules</h3>
+		<div center layout class="item">
+			<div class="details">
+				<div class="details-amt">
+					<p>Amount Spent :</p> 
+				    <paper-input value="{{ruleAmount}}" label="BTC"></paper-input>
+				</div> 
+			</div>	
+			
+			<paper-slider id="cashback_percent" value="1" step="1" max="10" snaps="" pin="" aria-valuemax="10%" aria-valuemin="0" tabindex="0" role="slider" aria-valuenow="5"
+				    ></paper-slider>
+			
+			
+			<div class="rule-button">
+				<paper-button raised class="colored" on-tap="{{addRule}}">Add Rule</paper-button>
+			</div>
+						   
+	    </div>
+	  	  
+   </section>
+   
+   <paper-toast id="toast2" class="capsule" text=""
+               duration="3000"></paper-toast>		 
+
+	
+	<template repeat="{{data}}" >
+		<div center horizontal layout class="item">
+		    <paper-checkbox checked="{{done}}"></paper-checkbox>
+			<div flex class="card">
+				<p> Amount Spent: {{ruleAmount}} BTC</p>
+				<p> Percentage Cashback : {{percentage}} %</p>
+			</div>
+		</div>
+	</template>
+	<core-localstorage id="storage" name="pixel-app-storage" value="{{data}}"></core-localstorage>
+	
+	
+  </template>
+  <script>
+	  
+	  
+  Polymer({
+	data: [],
+	rule_id:0,
+	
+	addRule: function() {
+	  var contentText = this.$.cashback_percent.value + " for Amount " + this.ruleAmount;
+	  this.data.unshift({
+		  rule_Id :1,
+		  percentage: this.$.cashback_percent.value ,
+		  ruleAmount: this.ruleAmount
+		});
+        	  
+	  this.$.toast2.text = " Adding Rule !!!! "+contentText;
+	  this.$.toast2.show();
+	  
+	  this.$.newNoteInput.style.display = 'none';
+	  
+	},
+	
+	dataChanged: function() {
+		this.$.storage.save();
+	},
+      
+    ready: function() {
+      this.$.newNoteInput.style.display = 'none';
+    },
+    
+    showNewNoteInput: function() {
+      this.$.newNoteInput.style.display = 'block';
+    },
+    
+    dataChanged: function() {
+      this.$.storage.save();
+    },
+    delete: function(e) {
+      this.data = this.data.filter(function(item) {
+        return !item.done;
+      })
+    }
+    
+    
+  });
+</script>
+  
+</polymer-element>

@@ -1,0 +1,123 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="services/refund-service.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../bower_components/paper-shadow/paper-shadow.html">
+<link rel="import" href="../bower_components/core-localstorage/core-localstorage.html">
+
+
+
+
+<polymer-element name="refund-list">
+  <template>
+  	 <style>
+    	
+    	section > * {
+			margin: 15px;
+		}
+		
+		.dialog {
+	    	box-sizing: border-box;
+			padding: 8px;
+		}
+		
+		.card {
+		  width: 500px;
+		  background-color: #fff;
+		  padding: 1em;
+		  position: relative;
+		}
+
+	    
+	    .dialog > .content {
+	 	   font-size: 0.9em;
+	 	   height: 170px;
+		}
+		
+		.dialog > .button {
+	    	float: right;
+			width: 90px;
+		}
+		.label-blue {
+		    color: #4285f4;
+		}
+		
+		.colored {
+			background: #4285f4;
+			color: #fff;
+		}
+		
+     </style>
+    <!-- add markup here -->
+    <refund-service id="service" transactions="{{transactions}}">
+	</refund-service>
+    <section>
+	    
+    	<template repeat="{{transaction,i in transactions}}" >
+		    <div class="card">
+				<p> User Address : {{transaction.user_address}}</p>
+				<p> Refund amount : {{transaction.refund_amt}} BTC</p>
+				<div class="rule-button">
+					<paper-button raised class="colored" on-tap="{{addRule}}">Send Refund</paper-button>
+				</div>
+			
+			</div>
+			
+		 </template>
+	 </section>
+     
+                
+  </template>
+  
+  
+  <script>
+	Polymer({
+	  favImages:[],	
+		
+	  created: function(){
+		console.log("Selected -->"+this.selected);	  
+	  },	
+	  ready: function() {
+	 	 console.log("Called Image List"+this.$.service);
+	  },
+	  
+	  eventDelegates: {
+        up: 'onTap',
+        down: 'onTap'
+      },
+      
+      onTap: function(event, detail, sender) {
+        
+      },
+      
+	  handleFavorite: function(event, detail, sender) {
+	   console.log("Handle Favorite-->Called by Fire-> from favoriteTapped event");
+	   var imageData = sender.templateInstance.model.image;
+	   
+	   this.favImages.unshift({
+		  src: imageData.src,
+          name: imageData.name,
+          favorite: imageData.favorite
+        });
+        
+	   this.$.service.setFavorite(imageData.name, imageData);
+	  },
+	  
+	  favImagesChanged: function() {
+      	this.$.storage.save();
+	  },
+	  
+	  handleImage: function(event, detail, sender) {
+		var inputParam = sender.id;
+	    var fileName = inputParam.substring(inputParam.lastIndexOf("/")+1,inputParam.length);
+	    this.$.service.callImage(fileName);
+	    this.$.toast2.text = fileName +" will display on Pixel !!!!"
+	    this.$.toast2.show();
+	  }
+	  
+	  
+	});
+</script>
+
+
+</polymer-element>

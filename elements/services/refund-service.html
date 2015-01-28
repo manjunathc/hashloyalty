@@ -1,0 +1,59 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../../bower_components/core-ajax/core-xhr.html">
+
+<!-- 
+  `<post-service>` provides an API for a fake service -- 
+  _unquote_, the read-only social networking service!
+
+  Provides a very simple API: `posts` returns the list of posts.
+  `setFavorite` pretends to persist a user's favorite choice.
+
+  @element post-service
+  @demo 
+  @homepage http://www.polymer-project.org/docs/start/tutorial.html
+-->
+
+<polymer-element name="refund-service" attributes="transactions">
+  <template>
+    <style>
+    :host {
+      display: none;
+    }
+    </style>
+    
+    <core-ajax id="ajax"
+      auto	
+      url="../../api/users_merchant1.json"
+      handleAs="json"
+      on-core-response="{{transactionsLoaded}}">
+    </core-ajax>
+   
+   
+  </template>
+       
+  <script>
+  Polymer('refund-service', {
+	 
+    created: function() {
+	 },
+    
+    ready:function (){
+	},
+    
+    transactionsLoaded: function() {
+      // Make a copy of the loaded data
+      console.log("Called transaction Services");
+      console.log("Transactions in "+this.transactions);
+      
+      if(undefined === this.transactions) {
+	    //this.$.ajax.go();  
+	    console.log("Called Ajax");
+      	this.transactions = this.$.ajax.response.slice(0);
+      }
+      
+    }  
+    
+    });
+  </script>
+</polymer-element>

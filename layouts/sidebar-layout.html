@@ -1,0 +1,45 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/core-scaffold/core-scaffold.html">
+<link rel="import" href="/bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="/bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="/bower_components/core-item/core-item.html">
+<link rel="import" href="/bower_components/core-icons/social-icons.html">
+<link rel="import" href="/bower_components/pushstate-anchor/src/pushstate-anchor.html">
+<link rel="import" href="/bower_components/google-signin/google-signin.html">
+
+
+<polymer-element name="sidebar-layout" attributes="selected" noscript>
+  <template>
+    <link rel="stylesheet" href="sidebar-layout.css">
+    <core-scaffold>
+      <core-header-panel navigation flex mode="seamed">
+        <core-toolbar>Hash Loyalty</core-toolbar>
+	        <core-item icon="home" label="Rules" active?="{{selected == 'home'}}">
+	       		<a is="pushstate-anchor" href="/"></a>
+	        </core-item>
+	        <core-item icon="verified-user" label="Register" active?="{{selected == 'register'}}">
+	        	<a is="pushstate-anchor" href="/register"></a>
+	        </core-item>
+	        <core-item icon="account-balance-wallet" label="Balance" active?="{{selected == 'balance'}}">
+	        	<a is="pushstate-anchor" href="/balance"></a>
+	        </core-item>
+	        <core-item icon="dashboard" label="Liabilities" active?="{{selected == 'liabilities'}}">
+	        	<a is="pushstate-anchor" href="/liabilities"></a>
+	        </core-item>
+	        <core-item icon="payment" label="Payments" active?="{{selected == 'payments'}}">
+	        	<a is="pushstate-anchor" href="/payments"></a>
+	        </core-item>
+	  </core-header-panel>
+      
+      <div tool>
+	     <content select=".title">
+	     </content>
+      </div>
+      
+      <div class="content">
+	    <content></content>
+      </div>
+    </core-scaffold>
+  </template>
+  
+</polymer-element>

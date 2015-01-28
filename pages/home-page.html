@@ -1,0 +1,14 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/layouts/sidebar-layout.html">
+<link rel="import" href="/elements/merchant-rules.html">
+
+<polymer-element name="home-page" attributes="pathArg1" noscript>
+  <template>
+    <sidebar-layout selected="home">
+      <div class="title">Welcome Merchant1</div>  
+      <section>
+	   	<merchant-rules></merchant-rules>
+	 </section>
+    </sidebar-layout>
+  </template>
+</polymer-element>
